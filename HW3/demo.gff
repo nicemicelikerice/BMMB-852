@@ -1,0 +1,2 @@
+NC_056660.1	.	CDS 6000	7000	.	+	.	Parent=transcript1;ID=cds1
+NC_056660.1	.	CDS 8500	9500	.	-	.	Parent=transcript1;ID=cds2
