@@ -34,13 +34,15 @@ This should give a file named cds.gff
 
 Drag both of the above files onto your IGV window and zoom in and you should get something like this!
 
-![start](images/스크린샷 2024-09-15 122036.png)
-
-![end](images/스크린샷 2024-09-15 122057.png)
+![yay](images/gene_cds.png)
 
 As we can see, the start and stop codons align pretty well with the amino acids!
 
 Hopefully yours does too
+
+![start](images/start.png)
+
+![end](images/end.png)
 
 **Creating your very own gff file**
 
@@ -55,6 +57,6 @@ Make sure you're looking at the right chromosome
 
 Now drag it onto the IGV window and.....*TADA*
 
-![yay](images/스크린샷 2024-09-15 122956.png)
 
-![yay2](images/스크린샷 2024-09-15 122157.png)
+
+![yay2](images/custom.png)
