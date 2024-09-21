@@ -3,22 +3,26 @@
 **Downloading genome and files**
 
 ```datasets download genome accession GCF_018350195.1 --include gff3,cds,protein,rna,genome
+```
 
 **Unzipping**
 
 ```unzip ncbi_dataset.zip
+```
 
 I attempted to open genomic.gff in IGV but it forced to sort the file, creating genomic.sorted.gff
 
 **Extracting genes**
 
 ```cat ncbi_dataset/data/GCF_018350195.1/genomic.sorted.gff | awk ' $3=="gene" { print $0 }' > ncbi_dataset/data/GCF_018350195.1/gene.gff
+```
 
 This should give a file named gene.gff
 
 **Extracting CDS**
 
 ``` cat ncbi_dataset/data/GCF_018350195.1/genomic.sorted.gff | awk ' $3=="CDS" { print $0 }' > ncbi_dataset/data/GCF_018350195.1/cds.gff
+```
 
 This should give a file named cds.gff
 
@@ -39,8 +43,8 @@ Hopefully yours does too
 Create a gff file with the following content
 
 ```NC_056660.1	.	CDS	6000	7000	.	+	.	Parent=transcript1;ID=cds1
-
-```NC_056660.1	.	CDS	8500	9500	.	-	.	Parent=transcript1;ID=cds2
+NC_056660.1	.	CDS	8500	9500	.	-	.	Parent=transcript1;ID=cds2
+```
 
 Make sure you're looking at the right chromosome
 
