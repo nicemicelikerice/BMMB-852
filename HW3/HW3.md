@@ -2,26 +2,30 @@
 
 **Downloading genome and files**
 
-```datasets download genome accession GCF_018350195.1 --include gff3,cds,protein,rna,genome
+```bash
+datasets download genome accession GCF_018350195.1 --include gff3,cds,protein,rna,genome
 ```
 
 **Unzipping**
 
-```unzip ncbi_dataset.zip
+```bash
+unzip ncbi_dataset.zip
 ```
 
 I attempted to open genomic.gff in IGV but it forced to sort the file, creating genomic.sorted.gff
 
 **Extracting genes**
 
-```cat ncbi_dataset/data/GCF_018350195.1/genomic.sorted.gff | awk ' $3=="gene" { print $0 }' > ncbi_dataset/data/GCF_018350195.1/gene.gff
+```bash
+cat ncbi_dataset/data/GCF_018350195.1/genomic.sorted.gff | awk ' $3=="gene" { print $0 }' > ncbi_dataset/data/GCF_018350195.1/gene.gff
 ```
 
 This should give a file named gene.gff
 
 **Extracting CDS**
 
-``` cat ncbi_dataset/data/GCF_018350195.1/genomic.sorted.gff | awk ' $3=="CDS" { print $0 }' > ncbi_dataset/data/GCF_018350195.1/cds.gff
+```bash
+cat ncbi_dataset/data/GCF_018350195.1/genomic.sorted.gff | awk ' $3=="CDS" { print $0 }' > ncbi_dataset/data/GCF_018350195.1/cds.gff
 ```
 
 This should give a file named cds.gff
@@ -30,9 +34,9 @@ This should give a file named cds.gff
 
 Drag both of the above files onto your IGV window and zoom in and you should get something like this!
 
-![image](images/스크린샷 2024-09-15 122036.png)
+![start](images/스크린샷 2024-09-15 122036.png)
 
-![image](images/스크린샷 2024-09-15 122057.png)
+![end](images/스크린샷 2024-09-15 122057.png)
 
 As we can see, the start and stop codons align pretty well with the amino acids!
 
@@ -42,7 +46,8 @@ Hopefully yours does too
 
 Create a gff file with the following content
 
-```NC_056660.1	.	CDS	6000	7000	.	+	.	Parent=transcript1;ID=cds1
+```bash
+NC_056660.1	.	CDS	6000	7000	.	+	.	Parent=transcript1;ID=cds1
 NC_056660.1	.	CDS	8500	9500	.	-	.	Parent=transcript1;ID=cds2
 ```
 
@@ -50,6 +55,6 @@ Make sure you're looking at the right chromosome
 
 Now drag it onto the IGV window and.....*TADA*
 
-![image](images/스크린샷 2024-09-15 122956.png)
+![yay](images/스크린샷 2024-09-15 122956.png)
 
-![image](images/스크린샷 2024-09-15 122157.png)
+![yay2](images/스크린샷 2024-09-15 122157.png)
