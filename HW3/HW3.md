@@ -1,38 +1,31 @@
-#   Downloading genome and files
-(bioinfo)
-jk@JiwooHPbar ~/work/hw3
-$ datasets download genome accession GCF_018350195.1 --include gff3,cds,protein,rna,genome
-New version of client (16.28.0) available at https://ftp.ncbi.nlm.nih.gov/pub/datasets/command-line/LATEST/linux-amd64/datasets.
-Collecting 1 genome record [================================================] 100% 1/1
-Downloading: ncbi_dataset.zip    848MB valid zip structure -- files not checked
-Validating package [================================================] 100% 9/9
-(bioinfo)
-jk@JiwooHPbar ~/work/hw3
-$ ls
-README.md  md5sum.txt  ncbi_dataset  ncbi_dataset.zip
-#   Unzipping
-(bioinfo)
-jk@JiwooHPbar ~/work/hw3
-$ unzip ncbi_dataset.zip
-Archive:  ncbi_dataset.zip
-replace README.md? [y]es, [n]o, [A]ll, [N]one, [r]ename: y
-  inflating: README.md
-replace ncbi_dataset/data/assembly_data_report.jsonl? [y]es, [n]o, [A]ll, [N]one, [r]ename: A
-  inflating: ncbi_dataset/data/assembly_data_report.jsonl
-  inflating: ncbi_dataset/data/GCF_018350195.1/GCF_018350195.1_P.tigris_Pti1_mat1.1_genomic.fna
-  inflating: ncbi_dataset/data/GCF_018350195.1/genomic.gff
-  inflating: ncbi_dataset/data/GCF_018350195.1/cds_from_genomic.fna
-  inflating: ncbi_dataset/data/GCF_018350195.1/protein.faa
-  inflating: ncbi_dataset/data/GCF_018350195.1/rna.fna
-  inflating: ncbi_dataset/data/dataset_catalog.json
-  inflating: md5sum.txt
-#   Attempting to open genomic.gff in IGV forced to sort, creating genomic.sorted.gff
-#   Extracting genes
-(bioinfo)
-jk@JiwooHPbar ~/work/hw3
-$ cat ncbi_dataset/data/GCF_018350195.1/genomic.sorted.gff | awk ' $3=="gene" { print $0 }' > ncbi_dataset/data/GCF_018350195.1/gene.gff
-#   Extracting CDS
-(bioinfo)
-jk@JiwooHPbar ~/work/hw3
-$ cat ncbi_dataset/data/GCF_018350195.1/genomic.sorted.gff | awk ' $3=="CDS" { print $0 }' > ncbi_datase
-t/data/GCF_018350195.1/cds.gff
+#This markdown file shows how I visualized GFF files
+**Downloading genome and files**
+> datasets download genome accession GCF_018350195.1 --include gff3,cds,protein,rna,genome
+
+**Unzipping**
+> unzip ncbi_dataset.zip
+I attempted to open genomic.gff in IGV but it forced to sort the file, creating genomic.sorted.gff
+
+**Extracting genes**
+> cat ncbi_dataset/data/GCF_018350195.1/genomic.sorted.gff | awk ' $3=="gene" { print $0 }' > ncbi_dataset/data/GCF_018350195.1/gene.gff
+This should give a file named gene.gff
+
+**Extracting CDS**
+> cat ncbi_dataset/data/GCF_018350195.1/genomic.sorted.gff | awk ' $3=="CDS" { print $0 }' > ncbi_dataset/data/GCF_018350195.1/cds.gff
+This should give a file named cds.gff
+
+**Visualizing gene and CDS files**
+Drag both of the above files onto your IGV window and zoom in and you should get something like this!
+![image](images/스크린샷 2024-09-15 122036.png)
+![image](images/스크린샷 2024-09-15 122057.png)
+As we can see, the start and stop codons align pretty well with the amino acids!
+Hopefully yours does too
+
+**Creating your very own gff file**
+Create a gff file with the following content
+> NC_056660.1	.	CDS	6000	7000	.	+	.	Parent=transcript1;ID=cds1
+> NC_056660.1	.	CDS	8500	9500	.	-	.	Parent=transcript1;ID=cds2
+Make sure you're looking at the right chromosome
+Now drag it onto the IGV window and.....*TADA*
+![image](images/스크린샷 2024-09-15 122956.png)
+![image](images/스크린샷 2024-09-15 122157.png)
