@@ -1,4 +1,4 @@
-#This markdown file shows how I visualized GFF files
+# This markdown file shows how I visualized GFF files
 
 **Downloading genome and files**
 

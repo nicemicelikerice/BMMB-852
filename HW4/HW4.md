@@ -1,4 +1,4 @@
-#This markdown file shows how I created a script based off of HW2
+# This markdown file shows how I created a script based off of HW2
 
 **Create a .sh file**
 
