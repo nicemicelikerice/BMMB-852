@@ -58,3 +58,35 @@ echo "For the mus musculus genome, the number of sequence regions in the file is
 ```
 
 But now your script is done! Save it and run it in the folder of choice
+
+**Practicing on other people's data**
+
+This is on Marti Albuja's data
+
+When I ran my data on their data and changed the variables to 
+
+```bash
+gff3="https://ftp.ensembl.org/pub/current_gff3/prolemur_simus/Prolemur_simus.Prosim_1.0.112.gff3.gz"
+org="Prolemur_simus.Prosim_1.0.112"
+```
+
+I was able to replicate her results!
+
+```bash
+Number of features in the file: 1104650
+Number of sequence regions in the file: 128596
+For the mus musculus genome, the number of sequence regions in the file is different due to the chromosome names (this counts X and Y as separate chromosomes): 0
+Number of genes in the file: 20354
+Top ten most annotated feature types in the file:
+400695  exon
+393577  CDS
+128596  region
+111882  biological_region
+37979   mRNA
+20354   gene
+5290    ncRNA_gene
+1902    transcript
+1467    snRNA
+924     rRNA
+Does it seem like a complete and well-annotated organism? Well, I can't do everything for you! Use your brain!
+```

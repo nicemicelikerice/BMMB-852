@@ -37,3 +37,37 @@ echo -e "Top ten most annotated feature types in the file:\n$(cat clean.gff3 | c
 
 #question decision-making capability of user
 echo "Does it seem like a complete and well-annotated organism? Well, I can't do everything for you! Use your brain!"
+
+##This part is for other people's data
+
+#link to the gff3 file and data name
+
+gff3_alt="https://ftp.ensembl.org/pub/current_gff3/prolemur_simus/Prolemur_simus.Prosim_1.0.112.gff3.gz"
+org_alt="Prolemur_simus.Prosim_1.0.112"
+
+
+##--------Nothing Changed Below This Line--------##
+
+#download gff3 file
+wget $gff3_alt
+
+#unzip the file
+gunzip $org_alt.gff3.gz
+
+#clean up gff3 file
+cat $org.gff3 | grep -v '#' > clean.gff3
+
+#get number of features from clean file
+echo "Number of features in the file: $(cat clean.gff3 | cut -f 3 | wc -l)"
+
+#get number of sequence regions from clean file (may not work for other names)
+echo "Number of sequence regions in the file: $(cat clean.gff3 | cut -f 1 | sort | uniq | wc -l)"
+
+#number of genes listed for this organism
+echo "Number of genes in the file: $(cat clean.gff3 | cut -f 3 | grep -w 'gene' | wc -l)"
+
+#top ten most annotated feature types for this organism
+echo -e "Top ten most annotated feature types in the file:\n$(cat clean.gff3 | cut -f 3 | sort-uniq-count-rank | head)"
+
+#question decision-making capability of user
+echo "Does it seem like a complete and well-annotated organism? Well, I can't do everything for you! Use your brain!"
