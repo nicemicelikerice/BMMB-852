@@ -77,6 +77,8 @@ SRR2 post-trim
 
 YAY
 
+We see that the quality has improved significantly so that it is probably usable enough for downstream applications
+
 Assuming that the environment menv has been created you can also create a multiqc report like this
 ```bash
 micromamba run -n menv multiqc -o ${pdir} ${pdir}
