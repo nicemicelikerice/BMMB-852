@@ -2,7 +2,7 @@
 
 Before we make the makefile (lol), I had to decide which variables to make.
 
-The basic variables are for the common tiger, panthera tigris.
+The basic variables are for the common tiger, Panthera Tigris.
 
 ```bash
 # Accession number
@@ -42,7 +42,12 @@ usage:
 	@echo "make fastqc    # Run fastqc on the reads"
 ```
 
-The genome command downloads the genome and gets the smallest chromosome
+The genome command downloads the genome and gets the smallest chromosome.
+
+It uses the variables ${ACC} and ${GENOME} to designate the file you want.
+
+In the case of Panthera Tigris, the genome file is too big so I created a separate file for one chromosome using the ${CHR}.
+
 ```bash
 genome:
 	datasets download genome accession ${ACC}
@@ -50,14 +55,22 @@ genome:
 	cat ${GENOME} | sed -n '/^>${CHR}/,/^>/p' | sed '$d' > ${CHR}.fa
 ```
 
-The simulate command simulates sequencing for the previous command's output
+The simulate command simulates sequencing for the previous command's output.
+
+The basic read length is 100 and the number of reads can be changed with ${N}.
+
+It also uses ${CHR} as the input file.
+
 ```bash
 simulate:
 	wgsim -e 0 -r 0 -R 0 -1 100 -2 100 -N ${N} ${CHR}.fa read1.fq read2.fq
 	echo $(seqkit stats read1.fq read2.fq)
 ```
 
-The download command downloads reads from the SRA database and creates initial fastqc files
+The download command downloads reads from the SRA database and creates initial fastqc files.
+
+${SRR} designates the SRA file to get, and the number of reads can be adjusted with ${N}.
+
 ```bash
 download:
 	mkdir -p ${rdir} ${pdir}
@@ -66,7 +79,10 @@ download:
 	fastqc -q ${r1} ${r2} -o ${pdir}
 ```
 
-The trim command takes the previous command's output and trims from the right to create hopefully better fastqc files
+The trim command takes the previous command's output and trims from the right to create hopefully better fastqc files.
+
+It is possible to change the cut_right to cut_tail to see which gives better results.
+
 ```bash
 trim:
 	fastp --adapter_sequence=${ADAPTER} --cut_right \      -i ${r1} -I ${r2} -o ${t1} -O ${t2}
