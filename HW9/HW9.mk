@@ -16,21 +16,21 @@ SRR = SRR25597804
 N = 3000000
 
 #Set output read names
-r1=reads/${SRR}_1.fastq
-r2=reads/${SRR}_2.fastq
+R1=reads/${SRR}_1.fastq
+R2=reads/${SRR}_2.fastq
 
 #Set trimmed read names
-t1=reads/${SRR}_1.trimmed.fastq
-t2=reads/${SRR}_2.trimmed.fastq
+T1=reads/${SRR}_1.trimmed.fastq
+T2=reads/${SRR}_2.trimmed.fastq
 
 #Set adapter sequence
 ADAPTER=AGATCGGAAGAGCACACGTCTGAACTCCAGTCA
 
 #Set read directory
-rdir=reads
+RDIR=reads
 
 #Set report directory
-pdir=reports
+PDIR=reports
 
 #Set reference genome
 REF=refs/${CHR}.fa
@@ -63,15 +63,15 @@ simulate:
 
 #Download reads from SRA
 download:
-	mkdir -p ${rdir} ${pdir}
+	mkdir -p ${RDIR} ${PDIR}
 	fastq-dump -X ${N} -F --outdir reads --split-files ${SRR}
 	echo $(seqkit stats ${SRR}_1.fastq ${SRR}_2.fastq)
-	fastqc -q ${r1} ${r2} -o ${pdir}
+	fastqc -q ${R1} ${R2} -o ${PDIR}
 
 #QC Trimming
 trim:
-	fastp --adapter_sequence=${ADAPTER} --cut_tail \      -i ${r1} -I ${r2} -o ${t1} -O ${t2}
-	fastqc -q -o ${pdir} ${t1} ${t2}
+	fastp --adapter_sequence=${ADAPTER} --cut_tail \      -i ${R1} -I ${R2} -o ${T1} -O ${T2}
+	fastqc -q -o ${PDIR} ${T1} ${T2}
 
 #Index the reference genome
 index:
@@ -80,7 +80,7 @@ index:
 #Align the reads to the reference genome
 align:
 	mkdir -p bam
-	bwa mem ${REF} ${t1} ${t2} > bam/${SAM}
+	bwa mem ${REF} ${T1} ${T2} > bam/${SAM}
 	cat bam/${SAM} | samtools sort > bam/${BAM}
 	samtools index bam/${BAM}
 
